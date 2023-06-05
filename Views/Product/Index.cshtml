@@ -1,0 +1,27 @@
+@using MVC.Controllers;
+@model Products;
+
+@{
+
+}
+
+<a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="NewProduct">Add New Product</a>
+
+
+  <h1>Select Mode of Payment</h1>
+
+  <form>
+    <input type="radio" id="creditCard" name="paymentMode" value="creditCard">
+    <label for="creditCard">Credit Card</label><br>
+
+    <input type="radio" id="debitCard" name="paymentMode" value="debitCard">
+    <label for="debitCard">Debit Card</label><br>
+
+    <input type="radio" id="onlineTransfer" name="paymentMode" value="onlineTransfer">
+    <label for="onlineTransfer">Online Transfer</label><br>
+
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+
+
