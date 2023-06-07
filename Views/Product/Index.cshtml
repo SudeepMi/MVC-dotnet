@@ -1,27 +1,36 @@
-@using MVC.Controllers;
-@model Products;
+@model IEnumerable<MVC.Models.Products>;
 
 @{
 
 }
 
 <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="NewProduct">Add New Product</a>
+<table border="0" class="table table-responsive table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (Products products in Model)
+    {
+     <tr>
+      <td>@products.ID</td>
+      <td>@products.Name</td>
+      <td>@products.Price</td>
+      <td>
+        <a asp-action="Detail" asp-route-id="@products.ID">View</a> || <a>View</a> || <a>View</a>
+      </td>
+
+      
+    </tr>
+    }
+  </tbody>
+</table>
 
 
-  <h1>Select Mode of Payment</h1>
-
-  <form>
-    <input type="radio" id="creditCard" name="paymentMode" value="creditCard">
-    <label for="creditCard">Credit Card</label><br>
-
-    <input type="radio" id="debitCard" name="paymentMode" value="debitCard">
-    <label for="debitCard">Debit Card</label><br>
-
-    <input type="radio" id="onlineTransfer" name="paymentMode" value="onlineTransfer">
-    <label for="onlineTransfer">Online Transfer</label><br>
-
-    <br>
-    <input type="submit" value="Submit">
-  </form>
 
 

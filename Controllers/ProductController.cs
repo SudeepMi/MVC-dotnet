@@ -11,18 +11,49 @@ public class ProductController : Controller
     {
         _logger = logger;
     }
+    private List<Products> products = new List<Products>();
 
     public IActionResult Index()
     {
-        ViewData["product"] = "asdadas";
-        ViewBag.productId = "122";
-
-        return View();
+        using var connection = new MySqlConnection("Server=localhost;User ID=root;Password=password;Database=dotnet");
+        connection.Open();
+        string q = "SELECT * from products"; 
+        using var command = new MySqlCommand(q, connection);
+        MySqlDataReader reader = command.ExecuteReader();
+        while(reader.Read()){
+            Products product = new Products();
+            product.ID = reader["ID"].ToString();
+            product.Code = reader["Code"].ToString();
+            product.Name = reader["Name"].ToString();
+            product.Price = Convert.ToDouble(reader["Price"]);
+            products.Add(product);
+        }
+        return View(products);
     }
     public IActionResult NewProduct()
     {
+      
         return View();
     }
+
+    public IActionResult Detail(string id){
+        using var connection = new MySqlConnection("Server=localhost;User ID=root;Password=password;Database=dotnet");
+        connection.Open();
+        string q = "SELECT * from products WHERE ID='"+id+"'"; 
+        using var command = new MySqlCommand(q, connection);
+        MySqlDataReader reader = command.ExecuteReader();
+        Products product = new Products();
+        while(reader.Read()){
+            product.ID = reader["ID"].ToString();
+            product.Code = reader["Code"].ToString();
+            product.Name = reader["Name"].ToString();
+            product.Price = Convert.ToDouble(reader["Price"]);
+        }
+        return View(product);
+    }
+
+
+
 
     [HttpPost]
     public IActionResult NewProduct(Products p)
@@ -34,7 +65,7 @@ public class ProductController : Controller
         
         using var connection = new MySqlConnection("Server=localhost;User ID=root;Password=password;Database=dotnet");
         connection.Open();
-        string q = "INSERT INTO products VALUES('"+p.Name+"','"+p.Code+"','"+p.ID+"','"+p.Price+"')"; 
+        string q = "INSERT INTO products(Name,Code,ID,Price) VALUES('"+p.Name+"','"+p.Code+"','"+p.ID+"','"+p.Price+"')"; 
         Console.WriteLine(q);
         using var command = new MySqlCommand(q, connection);
         int reader = command.ExecuteNonQuery();
