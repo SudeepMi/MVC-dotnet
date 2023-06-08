@@ -1,7 +1,10 @@
+@{
 @model IEnumerable<MVC.Models.Products>;
 
-@{
-
+if(ViewData.ContainsKey("product")){
+<div class="alert alert-success alert-dismissible">
+    @ViewData["product"]
+</div>
 }
 
 <a class="btn btn-success mb-5" asp-area="" asp-controller="Product" asp-action="NewProduct">Add New Product</a>
@@ -23,8 +26,8 @@
       <td>@products.Price</td>
       <td>
         <a asp-action="Detail" asp-route-id="@products.ID" class="btn btn-primary">View</a>
-        <a asp-action="Detail" asp-route-id="@products.ID" class="btn btn-success">Edit</a>
-        <a asp-action="Detail" asp-route-id="@products.ID" class="btn btn-danger">Delete</a>
+        <a asp-action="Edit" asp-route-id="@products.ID" class="btn btn-success">Edit</a>
+        <a asp-action="Delete" asp-route-id="@products.ID" class="btn btn-danger">Delete</a>
       </td>
 
       
@@ -32,6 +35,7 @@
     }
   </tbody>
 </table>
+}
 
 
 

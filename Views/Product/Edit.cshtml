@@ -7,10 +7,15 @@
         font-weight: 600;
     }
 </style>
-<p>@ViewData["product"]</p>
+if(ViewData.ContainsKey("product")){
+<div class="alert alert-success alert-dismissible">
+    @ViewData["product"]
+    </div>
+}
+
 <div style=" width:25vw; margin:auto;" >
 <h1>Create Product</h1>
-<form asp-controller="Product" asp-action="NewProduct" style="display: grid; gap:10px;">
+<form asp-controller="Product" asp-action="Edit" style="display: grid; gap:10px;">
     <label asp-for="Name">Name</label>
     <input type="text" asp-for="Name" />
     <span asp-validation-for="Name"></span>
@@ -27,7 +32,7 @@
     <input type="text" asp-for="Price" />
     <span asp-validation-for="Price"></span>
 
-    <input type="submit" class="btn btn-success" value="Add Product" >
+    <input type="submit" class="btn btn-success"  value="Update Product" >
 </form>
 </div>
 }
