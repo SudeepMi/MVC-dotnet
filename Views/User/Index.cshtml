@@ -1,0 +1,43 @@
+@{
+@model IEnumerable<MVC.Models.User>;
+
+if(ViewData.ContainsKey("product")){
+<div class="alert alert-success alert-dismissible">
+    @ViewData["product"]
+</div>
+}
+
+<a class="btn btn-success mb-5" asp-area="" asp-controller="User" asp-action="NewUser">Add New User</a>
+<table border="0" class="table table-responsive table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (User users in Model)
+    {
+     <tr>
+      <td>@users.Id</td>
+      <td>@users.username</td>
+      <td>@users.role</td>
+      <td>@users.email</td>
+      <td>
+        <a asp-action="Detail" asp-route-id="@users.Id" class="btn btn-primary">View</a>
+        <a asp-action="Edit" asp-route-id="@users.Id" class="btn btn-success">Edit</a>
+        <a asp-action="Delete" asp-route-id="@users.Id" class="btn btn-danger">Delete</a>
+      </td>
+
+      
+    </tr>
+    }
+  </tbody>
+</table>
+}
+
+
+
+

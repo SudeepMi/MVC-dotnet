@@ -1,7 +1,11 @@
+using MVC.Models;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
+var dbString = builder.Configuration.GetConnectionString("dbConnection");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<UserContext>(options=>options.UseMySQL(dbString));
 
 var app = builder.Build();
 
