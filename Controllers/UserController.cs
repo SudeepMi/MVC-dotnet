@@ -13,7 +13,6 @@ public class UserController : Controller
         _context = context;
     }
 
-
     public IActionResult Index()
     {
         var products = _context.Users.ToArray();
@@ -54,6 +53,32 @@ public class UserController : Controller
         }
 
         return View();
+    }
+    public IActionResult Detail(string id){
+        User user = _context.Users.Find(id);
+        return View(user);
+    }
+
+    public IActionResult Edit(string id){
+        User user = _context.Users.Find(id);
+        return View(user);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult UpdateUser(User _user){
+        _context.Users.Update(_user);
+        _context.SaveChanges();
+        ViewData["message"] = "Done";
+        return RedirectToAction(nameof(Index));
+    }
+
+    public IActionResult Delete(User user){
+
+        _context.Users.Remove(user);
+        _context.SaveChanges();
+        ViewData["message"] = "Done";
+        return RedirectToAction(nameof(Index));
     }
 
 

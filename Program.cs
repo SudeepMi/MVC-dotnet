@@ -7,6 +7,7 @@ var dbString = builder.Configuration.GetConnectionString("dbConnection");
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<UserContext>(options=>options.UseMySQL(dbString));
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
